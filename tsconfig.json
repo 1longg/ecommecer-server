@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": "./src/api/v1/",
+    "paths": {
+      "@controllers/*": ["controllers/*"],
+      "@models/*": ["models/*"],
+      "@helpers/*": ["helpers/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@services/*": ["services/*"],
+      "@validations/*": ["validations/*"],
+      "@routes/*": ["routes/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@utils/*": ["utils/*"],
+      "@db/*": ["db/*"],
+      "@auths/*": ["auths/*"],
+      "@cores/*": ["cores/*"]
+    },
+    "typeRoots": ["types", "./node_modules/@types"]
+  },
+  "lib": ["es2015"]
+}
