@@ -10,15 +10,15 @@ class keyTokenService {
     const publicKey = crypto.randomBytes(32).toString('hex')
     return { privateKey, publicKey }
   }
-  static generateAccessToken(payload: {_id: mongoose.Types.ObjectId, email: string}, publicKey: string) {
+  static generateAccessToken(payload: {_id: mongoose.Types.ObjectId | string, email: string}, publicKey: string) {
     try {
-      const accessToken = jwt.sign(payload, publicKey, { expiresIn: '10s' })
+      const accessToken = jwt.sign(payload, publicKey, { expiresIn: '30min' })
       return accessToken
     } catch (error) {
       console.log(error)
     }
   }
-  static generateRefreshToken(payload: {_id: mongoose.Types.ObjectId, email: string}, privateKey: string) {
+  static generateRefreshToken(payload: {_id: mongoose.Types.ObjectId | string, email: string}, privateKey: string) {
     try {
       const refreshToken = jwt.sign(payload, privateKey, { expiresIn: '3days' })
       return  refreshToken 
@@ -26,7 +26,7 @@ class keyTokenService {
       console.log(error)
     }
   }
-  static async createKeyToken(_id: mongoose.Types.ObjectId, refreshToken: string, publicKey: string, privateKey: string){
+  static async createKeyToken(_id: mongoose.Types.ObjectId | string, refreshToken: string, publicKey: string, privateKey: string){
     return await keyToken.create({user: _id, refreshToken, publicKey, privateKey})
   }
 }

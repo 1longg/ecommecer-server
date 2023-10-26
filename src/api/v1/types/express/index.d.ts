@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import { IncomingHttpHeaders } from "node:http"
 
 export {}
@@ -8,6 +9,10 @@ declare global {
             headers: IncomingHttpHeaders & {
                'x-client-id' ?: string,
                'x-api-key' ?: string,
+            },
+            user?: {
+                email: string,
+                _id: mongoose.Types.ObjectId | string,
             }
         }
     }

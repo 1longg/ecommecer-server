@@ -21,7 +21,11 @@
       "@auths/*": ["auths/*"],
       "@cores/*": ["cores/*"]
     },
-    "typeRoots": ["types", "./node_modules/@types"]
+    "typeRoots": ["types", "./node_modules/@types"],
   },
-  "lib": ["es2015"]
+  "lib": ["es2015"],
+  "exclude": ["node_modules"],
+  "include": ["src/**/*"],
+  "files": ["src/api/v1/types/express/index.d.ts"]
+
 }

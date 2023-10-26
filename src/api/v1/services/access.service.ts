@@ -5,7 +5,6 @@ import { IRequestBodySignIn, IRequestBodySignUp } from '@interfaces/requestBody/
 import User from '@models/user.model'
 import keyTokenService from './keyToken.service'
 import { getInfoData } from '@utils/getInfoData'
-import _ from 'lodash'
 import keyToken from '@models/keyToken.model'
 import { checkExpiredRefreshToken } from '@auths/authUtils'
 
@@ -48,8 +47,8 @@ class AccessService {
   getNewAccessToken = async (refreshToken: string, userId: string) => {
     const keyStore = await keyToken.findOne({ user: userId })
     if (!keyStore) throw new ForbidenError('Invalid key store')
-    const decode = checkExpiredRefreshToken(refreshToken, keyStore.privateKey)
-    const accessToken = keyTokenService.generateAccessToken({_id: decode._id, email: decode.email}, keyStore.publicKey)
+    const decode = await checkExpiredRefreshToken(refreshToken, keyStore.privateKey)
+    const accessToken =  keyTokenService.generateAccessToken({_id: decode._id, email: decode.email}, keyStore.publicKey)
     return accessToken
   }
 

@@ -1,8 +1,9 @@
 import { ForbidenError } from '@cores/error.respsonse'
 import jwt from 'jsonwebtoken'
 import { IJwtPayLoad } from 'types/jwtPayLoad'
+import keyToken from '@models/keyToken.model'
 
-export const checkExpiredRefreshToken = (token: string, privateKey: string) => {
+export const checkExpiredRefreshToken = async (token: string, privateKey: string) => {
   /*
         1. get userId form header and get private key to decode token
         2. decode token
@@ -12,6 +13,7 @@ export const checkExpiredRefreshToken = (token: string, privateKey: string) => {
     return jwt.verify(token, privateKey) as IJwtPayLoad
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
+      await keyToken.deleteOne({ refreshToken: token }) 
       throw new ForbidenError('Token expired please login again')
     }
     throw new Error(error.message)

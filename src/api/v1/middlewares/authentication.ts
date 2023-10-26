@@ -11,9 +11,12 @@ export const authenticationMiddleware = async (req: Request, res: Response, next
   const { publicKey } = await keyToken.findOne({ user: userId })
 
   try {
-    checkExpiredAccessToken(accessToken, publicKey)
+    const user = checkExpiredAccessToken(accessToken, publicKey)
+    if(user._id !== userId) throw new ForbidenError('Invalid userId')
+    req.user = user
     next()
   } catch (error) {
+    console.log(error)
     next(error)
   }
 }
