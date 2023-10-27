@@ -24,7 +24,7 @@ instanceMongoDb
 
 app.use('/api/v1/auth', require('@routes/access/index'))
 app.use('/api/v1/products', require('@routes/product/index'))
-
+app.use('/api/v1/carts', require('@routes/cart/index'))
 //handleErros
 
 app.use((_req: Request, _res: Response, next: NextFunction) => {

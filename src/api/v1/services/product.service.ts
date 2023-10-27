@@ -53,7 +53,7 @@ class Product {
     name: string
     price: number
     description: string[]
-    atributes: mongoose.Schema.Types.Mixed
+    attributes: mongoose.Schema.Types.Mixed
     category: string
     belongTo: mongoose.Types.ObjectId
     quantity: string
@@ -64,7 +64,7 @@ class Product {
         this.name = name
         this.price = price
         this.description = description
-        this.atributes = atributes
+        this.attributes = atributes
         this.belongTo = belongTo
         this.category = category
         this.quantity = quantity
@@ -73,6 +73,7 @@ class Product {
         this.image = image
     }
     async createProduct(_id: mongoose.Types.ObjectId){
+        console.log(this)
         const product = await productModel.create({...this, _id})
         return product
     }
@@ -85,7 +86,7 @@ class Product {
 
 class Clothing extends Product {
     async createProduct(){
-        const clothing = await clothingModel.create({...this.atributes, shop:this.belongTo})
+        const clothing = await clothingModel.create({...this.attributes, shop:this.belongTo})
         if(!clothing) throw new BadRequestError('Create clothing failed')
         const newProduct = await super.createProduct(clothing._id)
         if(!newProduct) throw new BadRequestError('Create product failed')
@@ -100,7 +101,7 @@ class Clothing extends Product {
 }
 class Phone extends Product {
     async createProduct(){
-        const phone = await phoneModel.create({...this.atributes, shop:this.belongTo})
+        const phone = await phoneModel.create({...this.attributes, shop:this.belongTo})
         if(!phone) throw new BadRequestError('Create phone failed')
         const newProduct = await super.createProduct(phone._id)
         if(!newProduct) throw new BadRequestError('Create product failed')
@@ -116,7 +117,7 @@ class Phone extends Product {
 
 class Electric extends Product {
     async createProduct(){
-        const electric = await electricModel.create({...this.atributes, shop:this.belongTo})
+        const electric = await electricModel.create({...this.attributes, shop:this.belongTo})
         if(!electric) throw new BadRequestError('Create electric failed')
         const newProduct = await super.createProduct(electric._id)
         if(!newProduct) throw new BadRequestError('Create product failed')
