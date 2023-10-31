@@ -4,6 +4,7 @@ import clothingModel from "@models/product/clothing.model"
 import electricModel from "@models/product/electric.model"
 import phoneModel from "@models/product/phone.model"
 import productModel from "@models/product/product.model"
+import { addProductToInventory } from "@models/repositories/inventory.repo"
 import { getAllProduct, getProductsByFilter, getProductsBySearch, getSingleProduct } from "@models/repositories/product.repo"
 import { removeNullData, updateNestedObjectParser } from "@utils/removeNullData"
 import mongoose from "mongoose"
@@ -75,6 +76,9 @@ class Product {
     async createProduct(_id: mongoose.Types.ObjectId){
         console.log(this)
         const product = await productModel.create({...this, _id})
+        if(product){
+            await addProductToInventory(product._id, Number(this.quantity))
+        }
         return product
     }
     async updateProduct(_id: mongoose.Types.ObjectId | string ,objectParams: IRequestBodyUpdateProduct){

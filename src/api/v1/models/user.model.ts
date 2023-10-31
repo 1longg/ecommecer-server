@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    image: {
+    avatar: {
       type: String,
     },
     role: {
@@ -49,5 +49,6 @@ userSchema.pre('save', async function () {
   const hashedPassword = await bcrypt.hash(this.password, 10)
   this.password = hashedPassword
 })
+
 
 export default mongoose.model<IUserModel>(MODEL_NAME, userSchema)

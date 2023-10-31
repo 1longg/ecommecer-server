@@ -1,3 +1,4 @@
+import { ICartModelProducts } from "@interfaces/model/cartModel.interface"
 import mongoose from "mongoose"
 
 export interface IRequestBodySignIn {
@@ -53,4 +54,16 @@ export interface IRequestBodyUpdateProduct {
     sold?: number,
     rating?: number,
     image?: [string]
+}
+
+export interface ICheckoutReview {
+    cartId: mongoose.Types.ObjectId
+    user: mongoose.Types.ObjectId
+    product: [ICartModelProducts]
+}
+
+export interface IRequestBodyUpdateProfile{
+    firstName?: string,
+    lastName?: string,
+    phoneNumber?: string,
 }
