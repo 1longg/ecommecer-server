@@ -27,6 +27,7 @@ app.use('/api/v1/products', require('@routes/product/index'))
 app.use('/api/v1/carts', require('@routes/cart/index'))
 app.use('/api/v1/checkouts', require('@routes/checkout/index'))
 app.use('/api/v1/users', require('@routes/user/index'))
+app.use('/api/v1/comments', require('@routes/comment/index'))
 //handleErros
 
 app.use((_req: Request, _res: Response, next: NextFunction) => {
